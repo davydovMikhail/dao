@@ -4,13 +4,14 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "hardhat/console.sol";
 
 contract Dao is AccessControl {
     using SafeERC20 for IERC20;
     bytes32 public constant CHAIRMAN_ROLE = keccak256("CHAIRMAN_ROLE");
     address voteToken;
     uint256 minimumQuorum;
-    uint256 debatingDuration; //minutes
+    uint256 debatingDuration;
 
     mapping(address => uint256) public members;
     mapping(uint256 => Proposal) public proposals;
@@ -75,7 +76,7 @@ contract Dao is AccessControl {
 
     function finishProposal(uint256 _id) public {
         require(
-            proposals[_id].recipient != 0,
+            proposals[_id].recipient != address(0),
             "Voting completed successfully before you"
         );
         require(
@@ -87,12 +88,14 @@ contract Dao is AccessControl {
             "The number of tokens is less than the minimum quorum"
         );
         require(
-            proposals[_id].against /
+            (proposals[_id].support * 100) /
                 (proposals[_id].against + proposals[_id].support) >=
-                0.51,
+                51,
             "Vote scored less than 51%"
         );
-        (bool success, ) = proposals[_id].recipient.call(proposals[_id].data);
+        (bool success, ) = proposals[_id].recipient.call{value: 0}(
+            proposals[_id].data
+        );
         require(success, "ERROR call func");
         proposals[_id].recipient = address(0);
     }
