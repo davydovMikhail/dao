@@ -42,6 +42,7 @@ describe("Dao", function () {
     ];
     const iface = new ethers.utils.Interface(jsonAbi);
     const calldata = iface.encodeFunctionData('assignString', ['Some Test String']);
+    console.log(calldata)
     await dao.connect(chairman).addProposal(id, description, test.address, calldata)
     await expect(dao.connect(user1).vote(id, true)).to.be.revertedWith("You have not suffrage")
     const depositAmount = parseEther("450")

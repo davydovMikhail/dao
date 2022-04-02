@@ -1,0 +1,5 @@
+exports.addProposal = require("./add-proposal")
+exports.deposit = require("./deposit")
+exports.finish = require("./finish")
+exports.vote = require("./vote")
+exports.test = require("./test")
