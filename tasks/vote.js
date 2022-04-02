@@ -8,7 +8,7 @@ task("vote", "doing vote")
     .setAction(async function (taskArgs, hre) {
         const contract = await hre.ethers.getContractAt("Dao", process.env.DAO_ADDR);
         try {
-            await contract.vote(taskArgs.id, taskArgs.value)
+            await contract.vote(taskArgs.id, taskArgs.vote)
             console.log('voted');
         } catch (e) {
             console.log('error',e)
