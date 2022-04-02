@@ -5,11 +5,7 @@ This project demonstrates a basic Hardhat use case. It comes with a sample contr
 Try running some of the following tasks:
 
 ```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
+TOKEN_ADDR="0x021DcD1ff412a3aDa6CA23585773b3a947E58C87"
+DAO_ADDR="0x43bA1E17D81B54Cf9e4011B62263dfcd2edCC653"
+TEST_ADDR="0xd7ddAEA17C978756D940c6749938638Be1Ab7957"
 ```
