@@ -1,10 +1,11 @@
 require("@nomiclabs/hardhat-waffle");
 require('solidity-coverage');
 require("@nomiclabs/hardhat-web3");
+require("@nomiclabs/hardhat-etherscan");
 require('dotenv').config();
 require("./tasks");
 
-const { API_URL, PRIVATE_KEY } = process.env;
+const { API_URL, PRIVATE_KEY, ETH_API_KEY } = process.env;
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -19,4 +20,7 @@ module.exports = {
       gasPrice: 8000000000
     }
   },
+  etherscan: {
+    apiKey: ETH_API_KEY
+  }
 };
